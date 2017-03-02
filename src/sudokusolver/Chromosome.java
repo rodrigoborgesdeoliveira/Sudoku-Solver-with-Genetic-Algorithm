@@ -54,7 +54,8 @@ public class Chromosome {
             }
         }
     }
-
+    
+    // Evaluates the chromosome's quality by generating its fitness.
     public void fitnessFunction() {
         // Number of occurrencies of each number;
         int[] occurrences = new int[9];
