@@ -1071,6 +1071,7 @@ public class Interface extends javax.swing.JFrame {
         }
         
         // Start Genetic Algorithm.
+        
     }//GEN-LAST:event_solveButtonActionPerformed
 
     private void clearButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearButtonActionPerformed
