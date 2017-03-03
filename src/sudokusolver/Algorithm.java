@@ -65,7 +65,7 @@ public class Algorithm {
         columnCutPoint1 = r.nextInt(3);
         columnCutPoint2 = r.nextInt(4) + 5;
         
-        Chromosome[] chromosomes = new Chromosome[2];
+        Chromosome[] children = new Chromosome[2];
         
         // Genes of the parents.
         int[][] genesParents1 = chromosome1.getGenes();
@@ -73,23 +73,57 @@ public class Algorithm {
         
         int[][] genesChildren1 =  new int[9][9];
         int[][] genesChildren2 = new int[9][9];
+        
+        // Copies the genes of each parent to each child.
         for (int i = 0; i < 9; i++) {
             for (int j = 0; j < 9; j++) {
                 genesChildren1[i][j] = genesParents1[i][j];
                 genesChildren2[i][j] = genesParents2[i][j];
             }
         }
+        
+        // Changes the genes between cut points.
+        for (int i = lineCutPoint1; i < lineCutPoint2; i++) {
+            for (int j = columnCutPoint1; j < columnCutPoint2; j++) {
+                genesChildren1[i][j] = genesParents2[i][j];
+                genesChildren2[i][j] = genesParents1[i][j];
+            }
+        }
+        
+        // Creates the new chromosomes with the parents' genes.
+        children[0] = new Chromosome(genesChildren1, true);
+        children[1] = new Chromosome(genesChildren2, true);
+        
+        return children;
     }
     
     /* Selects three chromosomes from the population randomly. 
     The best two chromosomes will be set as parents for the new generation. */
     public static Chromosome[] tournamentSelection(Population population){
+        Random r = new Random();
         
+        Population tempPopulation = new Population(3);
+        
+        // Randomly select three chromosomes from the previous generation.
+        tempPopulation.setChromosome(population.getChromosome(r.nextInt(population.getPopulationSize())));
+        tempPopulation.setChromosome(population.getChromosome(r.nextInt(population.getPopulationSize())));
+        tempPopulation.setChromosome(population.getChromosome(r.nextInt(population.getPopulationSize())));
+        
+        // Sorts population.
+        tempPopulation.sortPopulation();
+        
+        // The parents are the best chromosomes (first two chromosomes).
+        Chromosome[] parents = new Chromosome[2];
+        
+        parents[0] = new Chromosome(tempPopulation.getChromosome(0));
+        parents[1] = new Chromosome(tempPopulation.getChromosome(1));
+        
+        return parents;
     }
     
     // Sets the crossover rate.
     public static void setCrossoverRate(float crossoverRate){
-        
+        Algorithm.setCrossoverRate(crossoverRate);
     }
     
     // Returns crossover rate.
@@ -99,7 +133,7 @@ public class Algorithm {
     
     // Sets the mutation rate.
     public static void setMutationRate(float mutationRate){
-        
+        Algorithm.setMutationRate(mutationRate);
     }
     
     // Returns mutation rate.
@@ -113,6 +147,11 @@ public class Algorithm {
     as ChromosomeB, which means that if we change the values of any of the variables, 
     we're actually changing the values of both variables. */
     public static Chromosome[] returnChromosomes(Chromosome[] basisChromosomes){
+        Chromosome[] chromosomes = new Chromosome[basisChromosomes.length];
+        for (int i = 0; i < basisChromosomes.length; i++) {
+            chromosomes[i] = new Chromosome(basisChromosomes[i]);
+        }
         
+        return chromosomes;
     }
 }
