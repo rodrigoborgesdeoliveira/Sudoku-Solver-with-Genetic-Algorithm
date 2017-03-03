@@ -11,7 +11,7 @@ import java.util.Random;
  */
 public class Algorithm {
     
-    private static float crossoverRate, mutationRate;
+    private static double crossoverRate, mutationRate;
     
     /* Creates a new generation by selecting parents through the tournament 
     selection and verifying if it'll occur the crossover and mutation of the chromosomes. */
@@ -37,8 +37,8 @@ public class Algorithm {
             
             /* Verify if the parents will be kept in the new generation or if 
             children will be generated through crossover. */
-            if (r.nextFloat() <= crossoverRate) {
-                children = returnChromosomes(crossover(parents[0], parents[2]));
+            if (r.nextDouble() <= crossoverRate) {
+                children = returnChromosomes(crossover(parents[0], parents[1]));
             } else {
                 children[0] = new Chromosome(parents[0].getGenes(), true);
                 children[1] = new Chromosome(parents[1].getGenes(), true);
@@ -122,22 +122,22 @@ public class Algorithm {
     }
     
     // Sets the crossover rate.
-    public static void setCrossoverRate(float crossoverRate){
-        Algorithm.setCrossoverRate(crossoverRate);
+    public static void setCrossoverRate(double crossoverRate){
+        Algorithm.crossoverRate = crossoverRate;
     }
     
     // Returns crossover rate.
-    public static float getCrossoverRate(){
+    public static double getCrossoverRate(){
         return crossoverRate;
     }
     
     // Sets the mutation rate.
-    public static void setMutationRate(float mutationRate){
-        Algorithm.setMutationRate(mutationRate);
+    public static void setMutationRate(double mutationRate){
+        Algorithm.mutationRate = mutationRate;
     }
     
     // Returns mutation rate.
-    public static float getMutationRate(){
+    public static double getMutationRate(){
         return mutationRate;
     }
     

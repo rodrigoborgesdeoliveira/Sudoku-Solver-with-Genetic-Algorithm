@@ -1072,6 +1072,44 @@ public class Interface extends javax.swing.JFrame {
         
         // Start Genetic Algorithm.
         
+        // Set initial parameters of the algorithm.
+        Algorithm.setCrossoverRate(0.8);
+        Algorithm.setMutationRate(0.3);
+        
+        boolean elitism = true;
+        
+        int populationSize = 100;
+        int maxNumGenerations = 30000; // Maximum number of generations.
+        
+        // Initial random population.
+        Population population = new Population(populationSize, board);
+        
+        boolean hasSolution = false; // Variable to verify if solution was found.
+        
+        int currentGeneration = 1;
+        
+        // While it doesn't have a solution or hadn't achieved maximum number of generations.
+        while (!(hasSolution) && (currentGeneration < maxNumGenerations)) {
+            // Creates a new population to substitute the initial random population.
+            population = new Population(Algorithm.newGeneration(population, elitism));
+            
+            System.out.println("Generation: " + currentGeneration + 
+                    " | Fitness: " + population.getBestChromosome().getFitness());
+            int cellCount = 0;
+            for (int i = 0; i < 9; i++) {
+                for (int j = 0; j < 9; j++) {
+                    cells[cellCount].setText(Integer.
+                            toString(population.getBestChromosome().getGenes()[i][j]));
+                    cellCount++;
+                }
+            }
+            
+            // Verify if any of the chromosomes is the solution (fitness = 0).
+            if (population.getBestChromosome().getFitness() == 0) {
+                // It has the solution.
+                hasSolution = true;
+            }
+        }
     }//GEN-LAST:event_solveButtonActionPerformed
 
     private void clearButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearButtonActionPerformed

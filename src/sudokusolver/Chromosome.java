@@ -36,7 +36,7 @@ public class Chromosome {
             this.genes = board;
 
             // Verify if it'll mutate or not.
-            if (r.nextFloat() <= Algorithm.getMutationRate()) {
+            if (r.nextDouble() <= Algorithm.getMutationRate()) {
                 // Mutates by changing the position of two genes.
                 int randomLinePosition1, randomLinePosition2, randomColumnPosition1,
                         randomColumnPosition2;
@@ -51,7 +51,7 @@ public class Chromosome {
                 this.genes[randomLinePosition2][randomColumnPosition2] = geneTemp;
             }
             
-            if (r.nextFloat() <= Algorithm.getMutationRate()) {
+            if (r.nextDouble() <= Algorithm.getMutationRate()) {
                // Mutates by changing the value of a gene.
                int randomLinePosition = r.nextInt(9);
                int randomColumnPosition = r.nextInt(9);
