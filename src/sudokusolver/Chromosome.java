@@ -1,7 +1,6 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Each chromosome is a possible solution for the problem and it is part of the
+ * population.
  */
 package sudokusolver;
 
@@ -13,14 +12,17 @@ import java.util.Random;
  * @author Rodrigo
  */
 public class Chromosome {
-
+    
     private int[][] genes = new int[9][9];
     private int fitness = 0;
 
     // Copies the elements from a chromosome to another one.
     public Chromosome(Chromosome basisChromosome) {
-        System.arraycopy(basisChromosome.genes, 0, this.genes, 0,
-                basisChromosome.genes.length);
+        for (int i = 0; i < 9; i++) {
+            for (int j = 0; j < 9; j++) {
+                this.genes[i][j] = basisChromosome.genes[i][j];
+            }
+        }
         fitness = basisChromosome.getFitness();
     }
 
@@ -30,31 +32,57 @@ public class Chromosome {
         if (isGenes) {
             // Creates a chromosome with the given genes.
             Random r = new Random();
-
+            
             this.genes = board;
 
             // Verify if it'll mutate or not.
+            if (r.nextFloat() <= Algorithm.getMutationRate()) {
+                // Mutates by changing the position of two genes.
+                int randomLinePosition1, randomLinePosition2, randomColumnPosition1,
+                        randomColumnPosition2;
+                randomLinePosition1 = r.nextInt(9);
+                randomColumnPosition1 = r.nextInt(9);
+                randomLinePosition2 = r.nextInt(9);
+                randomColumnPosition2 = r.nextInt(9);
+                
+                int geneTemp = this.genes[randomLinePosition1][randomColumnPosition1];
+                this.genes[randomLinePosition1][randomColumnPosition1]
+                        = this.genes[randomLinePosition2][randomColumnPosition2];
+                this.genes[randomLinePosition2][randomColumnPosition2] = geneTemp;
+            }
+            
+            if (r.nextFloat() <= Algorithm.getMutationRate()) {
+               // Mutates by changing the value of a gene.
+               int randomLinePosition = r.nextInt(9);
+               int randomColumnPosition = r.nextInt(9);
+               
+               this.genes[randomLinePosition][randomColumnPosition] = r.nextInt(9) + 1;
+               /* It's necessary to sum 1 to force it to randomly generate a number from
+                    1 to 9. */
+               
+               fitnessFunction(); // Evaluates this new chromosome.
+            }
         } else {
             // Creates a random chromosome.
             Random r = new Random();
             for (int i = 0; i < 9; i++) { // Lines
                 for (int j = 0; j < 9; j++) { // Columns
                     if (board[i][j] == 0) {
-                        // Generate a random number to the empty cell.
+                        // Generates a random number to the empty cell.
                         this.genes[i][j] = r.nextInt(9) + 1;
                         /* It's necessary to
                         sum 1 to force it to randomly generate a number from
                         1 to 9. */
                     } else {
                         /* The user already inserted a value to this cell, just
-                        copy it to the chromosome gene. */
+                        copy it to the chromosome's gene. */
                         this.genes[i][j] = board[i][j];
                     }
                 }
             }
         }
     }
-    
+
     // Evaluates the chromosome's quality by generating its fitness.
     public void fitnessFunction() {
         // Number of occurrencies of each number;
@@ -224,11 +252,11 @@ public class Chromosome {
             }
         }
     }
-
+    
     public int getFitness() {
         return fitness;
     }
-
+    
     public int[][] getGenes() {
         return genes;
     }
