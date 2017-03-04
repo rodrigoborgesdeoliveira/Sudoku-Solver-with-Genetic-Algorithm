@@ -1073,12 +1073,12 @@ public class Interface extends javax.swing.JFrame {
         // Start Genetic Algorithm.
         // Set initial parameters of the algorithm.
         Algorithm.setCrossoverRate(0.3);
-        Algorithm.setMutationRate(0.5);
+        Algorithm.setMutationRate(0.25);
 
-        boolean elitism = true;
+        boolean elitism = false;
 
         int populationSize = 50;
-        int maxNumGenerations = 5000; // Maximum number of generations.
+        int maxNumGenerations = 1000000; // Maximum number of generations.
 
         // Initial random population.
         Population population = new Population(populationSize, board);

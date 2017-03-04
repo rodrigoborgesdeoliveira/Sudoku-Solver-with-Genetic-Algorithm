@@ -40,8 +40,8 @@ public class Algorithm {
             if (r.nextDouble() <= crossoverRate) {
                 children = returnChromosomes(crossover(parents[0], parents[1]));
             } else {
-                children[0] = new Chromosome(parents[0].getGenes(), true);
-                children[1] = new Chromosome(parents[1].getGenes(), true);
+                children[0] = new Chromosome(parents[0].getGenes(), parents[0].getOriginalBoard());
+                children[1] = new Chromosome(parents[1].getGenes(), parents[1].getOriginalBoard());
             }
 
             // Adds the children to the new generation.
@@ -97,8 +97,8 @@ public class Algorithm {
         }
 
         // Creates the new chromosomes with the parents' genes.
-        children[0] = new Chromosome(genesChildren1, true);
-        children[1] = new Chromosome(genesChildren2, true);
+        children[0] = new Chromosome(genesChildren1, chromosome1.getOriginalBoard());
+        children[1] = new Chromosome(genesChildren2, chromosome2.getOriginalBoard());
 
         return children;
     }

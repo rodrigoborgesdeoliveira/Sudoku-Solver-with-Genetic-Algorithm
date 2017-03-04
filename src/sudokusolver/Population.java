@@ -31,7 +31,7 @@ public class Population {
         
         // Creates the random chromosomes.
         for (int i = 0; i < chromosomes.length; i++) {
-            chromosomes[i] = new Chromosome(board, false);
+            chromosomes[i] = new Chromosome(board);
         }
         
         sortPopulation();
