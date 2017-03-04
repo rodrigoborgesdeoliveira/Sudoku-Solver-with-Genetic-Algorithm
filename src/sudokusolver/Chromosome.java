@@ -12,79 +12,97 @@ import java.util.Random;
  * @author Rodrigo
  */
 public class Chromosome {
-    
+
     private int[][] genes = new int[9][9];
     private int fitness = 0;
+    private int[][] originalBoard = new int[9][9];
 
     // Copies the elements from a chromosome to another one.
     public Chromosome(Chromosome basisChromosome) {
         for (int i = 0; i < 9; i++) {
             for (int j = 0; j < 9; j++) {
-                this.genes[i][j] = basisChromosome.genes[i][j];
+                this.genes[i][j] = basisChromosome.getGenes()[i][j];
             }
         }
-        fitness = basisChromosome.getFitness();
+        this.fitness = basisChromosome.getFitness();
+        this.originalBoard = basisChromosome.getOriginalBoard();
     }
 
-    // Creates a random chromosome or, if genes parameter is true, 
-    // creates a chromosome with the given genes. It is possible to mutate them.
-    public Chromosome(int[][] board, boolean isGenes) {
-        if (isGenes) {
-            // Creates a chromosome with the given genes.
-            Random r = new Random();
-            
-            this.genes = board;
+    // Creates a random chromosome.
+    public Chromosome(int[][] board) {
+        originalBoard = board;
 
-            // Verify if it'll mutate or not.
-            if (r.nextDouble() <= Algorithm.getMutationRate()) {
-                // Mutates by changing the position of two genes.
-                int randomLinePosition1, randomLinePosition2, randomColumnPosition1,
-                        randomColumnPosition2;
-                randomLinePosition1 = r.nextInt(9);
-                randomColumnPosition1 = r.nextInt(9);
-                randomLinePosition2 = r.nextInt(9);
-                randomColumnPosition2 = r.nextInt(9);
-                
+        // Creates a random chromosome.
+        Random r = new Random();
+        for (int i = 0; i < 9; i++) { // Lines
+            for (int j = 0; j < 9; j++) { // Columns
+                if (board[i][j] == 0) {
+                    // Generates a random number to the empty cell.
+                    this.genes[i][j] = r.nextInt(9) + 1;
+                    /* It's necessary to
+                        sum 1 to force it to randomly generate a number from
+                        1 to 9. */
+                } else {
+                    /* The user already inserted a value to this cell, just
+                        copy it to the chromosome's gene. */
+                    this.genes[i][j] = board[i][j];
+                }
+            }
+        }
+
+        fitnessFunction();
+    }
+
+    // Creates a chromosome with the given genes. It is possible to mutate them.
+    public Chromosome(int[][] genes, int[][] originalBoard) {
+        // Creates a chromosome with the given genes.
+        Random r = new Random();
+
+        this.genes = genes;
+        this.originalBoard = originalBoard;
+
+        // Verify if it'll mutate or not.
+        if (r.nextDouble() <= Algorithm.getMutationRate()) {
+            // Mutates by changing the position of two genes.
+            int randomLinePosition1, randomLinePosition2, randomColumnPosition1,
+                    randomColumnPosition2;
+            randomLinePosition1 = r.nextInt(9);
+            randomColumnPosition1 = r.nextInt(9);
+            randomLinePosition2 = r.nextInt(9);
+            randomColumnPosition2 = r.nextInt(9);
+
+            if (originalBoard[randomLinePosition1][randomColumnPosition1] == 0
+                    && originalBoard[randomLinePosition2][randomColumnPosition2] == 0) {
+                // It isn't a number inserted by the user, can be changed.
+
                 int geneTemp = this.genes[randomLinePosition1][randomColumnPosition1];
                 this.genes[randomLinePosition1][randomColumnPosition1]
                         = this.genes[randomLinePosition2][randomColumnPosition2];
                 this.genes[randomLinePosition2][randomColumnPosition2] = geneTemp;
             }
-            
-            if (r.nextDouble() <= Algorithm.getMutationRate()) {
-               // Mutates by changing the value of a gene.
-               int randomLinePosition = r.nextInt(9);
-               int randomColumnPosition = r.nextInt(9);
-               
-               this.genes[randomLinePosition][randomColumnPosition] = r.nextInt(9) + 1;
-               /* It's necessary to sum 1 to force it to randomly generate a number from
+        }
+
+        if (r.nextDouble() <= Algorithm.getMutationRate()) {
+            // Mutates by changing the value of a gene.
+            int randomLinePosition = r.nextInt(9);
+            int randomColumnPosition = r.nextInt(9);
+
+            if (originalBoard[randomLinePosition][randomColumnPosition] == 0) {
+                // It isn't a number inserted by the user, can be changed.
+
+                this.genes[randomLinePosition][randomColumnPosition] = r.nextInt(9) + 1;
+                /* It's necessary to sum 1 to force it to randomly generate a number from
                     1 to 9. */
-               
-               fitnessFunction(); // Evaluates this new chromosome.
-            }
-        } else {
-            // Creates a random chromosome.
-            Random r = new Random();
-            for (int i = 0; i < 9; i++) { // Lines
-                for (int j = 0; j < 9; j++) { // Columns
-                    if (board[i][j] == 0) {
-                        // Generates a random number to the empty cell.
-                        this.genes[i][j] = r.nextInt(9) + 1;
-                        /* It's necessary to
-                        sum 1 to force it to randomly generate a number from
-                        1 to 9. */
-                    } else {
-                        /* The user already inserted a value to this cell, just
-                        copy it to the chromosome's gene. */
-                        this.genes[i][j] = board[i][j];
-                    }
-                }
             }
         }
+
+        fitnessFunction(); // Evaluates this new chromosome.
     }
 
     // Evaluates the chromosome's quality by generating its fitness.
     public void fitnessFunction() {
+        fitness = 0;
+
         // Number of occurrencies of each number;
         int[] occurrences = new int[9];
         // Set all occurrencies to zero.
@@ -252,12 +270,16 @@ public class Chromosome {
             }
         }
     }
-    
+
     public int getFitness() {
         return fitness;
     }
-    
+
     public int[][] getGenes() {
         return genes;
+    }
+
+    public int[][] getOriginalBoard() {
+        return originalBoard;
     }
 }

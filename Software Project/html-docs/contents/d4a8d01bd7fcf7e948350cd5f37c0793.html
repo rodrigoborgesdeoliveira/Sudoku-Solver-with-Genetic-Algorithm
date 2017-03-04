@@ -26,9 +26,11 @@
 
             <section style="margin-top: .5em;">
                 <span class="alert alert-info">
-                    <span class="node-icon _icon-UMLClass"></span>
-                    UMLClass
+                    <span class="node-icon _icon-UMLOperation"></span>
+                    UMLOperation
                 </span>
+                
+                    <span style="margin-left: 10px" class="alert alert-info">«constructor»</span>
                 
             </section>
 
@@ -47,6 +49,9 @@
                     <span>::</span>
                     <span class="label label-info"><a href='40f771124f20ae59beff2f2104147b81.html'><span class='node-icon _icon-UMLClass'></span>Chromosome</a></span>
                 
+                    <span>::</span>
+                    <span class="label label-info"><a href='d4a8d01bd7fcf7e948350cd5f37c0793.html'><span class='node-icon _icon-UMLOperation'></span>«constructor»Chromosome</a></span>
+                
             </section>
 
             <!-- Diagram -->
@@ -60,7 +65,7 @@
                 <h3>Description</h3>
                 <div>
                     
-                        <p>Each chromosome is a possible solution for the problem and it is part of the population.</p>
+                        <p>Creates a chromosome with the given genes. It is possible to mutate them.</p>
                     
                 </div>
             </section>
@@ -79,26 +84,6 @@
             
 
             <!-- Classifier -->
-
-            
-                
-                
-
-
-                
-                
-
-
-                
-                
-
-
-                
-                
-
-
-                
-                
 
             
 
@@ -133,97 +118,9 @@
             <!-- Attributes -->
 
             
-            <section>
-                <h3>Attributes</h3>
-                <table class="table table-striped table-bordered">
-                    <tr>
-                        <th>Visibility</th>
-                        <th>Name</th>
-                        <th>Type</th>
-                        <th>Description</th>
-                    </tr>
-                    
-                    <tr>
-                        <td>private</td>
-                        <td><a href="5c2526570d641b61573c8f290aeb468f.html">genes</a></td>
-                        <td>int</td>
-                        <td></td>
-                    </tr>
-                    
-                    <tr>
-                        <td>private</td>
-                        <td><a href="c0242726ff7cd489282f04aafcefaaba.html">fitness</a></td>
-                        <td>int</td>
-                        <td></td>
-                    </tr>
-                    
-                    <tr>
-                        <td>private</td>
-                        <td><a href="34092ceab01507f6b8f56f5c6ee41d27.html">originalBoard</a></td>
-                        <td>int</td>
-                        <td></td>
-                    </tr>
-                    
-                </table>
-            </section>
-            
 
             <!-- Operations -->
 
-            
-            <section>
-                <h3>Operations</h3>
-                <table class="table table-striped table-bordered">
-                    <tr>
-                        <th>Visibility</th>
-                        <th>Name</th>
-                        <th>Description</th>
-                    </tr>
-                    
-                    <tr>
-                        <td>public</td>
-                        <td><a href="e2140158b01b56614570bb4dba6989ed.html">Chromosome(basisChromosome: Chromosome)</a></td>
-                        <td><p>Copies the elements from a chromosome to another one.</p></td>
-                    </tr>
-                    
-                    <tr>
-                        <td>public</td>
-                        <td><a href="281b33584eef1811fabf2cdcdd311aca.html">Chromosome(board: int)</a></td>
-                        <td><p>Creates a random chromosome.</p></td>
-                    </tr>
-                    
-                    <tr>
-                        <td>public</td>
-                        <td><a href="d4a8d01bd7fcf7e948350cd5f37c0793.html">Chromosome(genes: int, originalBoard: int)</a></td>
-                        <td><p>Creates a chromosome with the given genes. It is possible to mutate them.</p></td>
-                    </tr>
-                    
-                    <tr>
-                        <td>public</td>
-                        <td><a href="b2ce793fbc375e373186d19f7f5c18dc.html">fitnessFunction(): void</a></td>
-                        <td><p>Evaluates the chromosome&#39;s quality by generating its fitness.</p></td>
-                    </tr>
-                    
-                    <tr>
-                        <td>public</td>
-                        <td><a href="3ae087e572ee873a174091a4deb22f61.html">getFitness(): int</a></td>
-                        <td><p>Returns fitness.</p></td>
-                    </tr>
-                    
-                    <tr>
-                        <td>public</td>
-                        <td><a href="d5abfdc5502e23cdcdb695cda57e63a1.html">getGenes(): int</a></td>
-                        <td><p>Returns genes.</p></td>
-                    </tr>
-                    
-                    <tr>
-                        <td>public</td>
-                        <td><a href="d46f76deb67d68bb16614c7ef1de0fb1.html">getOriginalBoard()</a></td>
-                        <td><p>Returns original board.</p></td>
-                    </tr>
-                    
-                </table>
-            </section>
             
 
             <!-- Receptions -->
@@ -236,6 +133,33 @@
 
             <!-- Parameters -->
 
+            
+            <section>
+                <h3>Parameters</h3>
+                <table class="table table-striped table-bordered">
+                    <tr>
+                        <th>Direction</th>
+                        <th>Name</th>
+                        <th>Type</th>
+                        <th>Description</th>
+                    </tr>
+                    
+                    <tr>
+                        <td>in</td>
+                        <td><a href="f30119af104dc53daba7c01b08867e9b.html">genes</a></td>
+                        <td>int</td>
+                        <td></td>
+                    </tr>
+                    
+                    <tr>
+                        <td>in</td>
+                        <td><a href="8550cce78b8986cb46f22e5b1c23aa32.html">originalBoard</a></td>
+                        <td>int</td>
+                        <td></td>
+                    </tr>
+                    
+                </table>
+            </section>
             
 
             <!-- Diagrams -->
@@ -317,7 +241,7 @@
     
     <tr>
         <td>stereotype</td>
-        <td><span class='label label-info'>null</span></td>
+        <td>constructor</td>
     </tr>
     
     
@@ -335,25 +259,8 @@
     
     
     
-    
-    
-    
-    
-    
-    
-    
-    
     <tr>
-        <td>isAbstract</td>
-        <td><span class='label label-info'>false</span></td>
-    </tr>
-    
-    
-    
-    
-    
-    <tr>
-        <td>isFinalSpecialization</td>
+        <td>isStatic</td>
         <td><span class='label label-info'>false</span></td>
     </tr>
     
@@ -371,9 +278,70 @@
     
     
     <tr>
-        <td>isActive</td>
+        <td>parameters</td>
+        <td>
+            
+            
+            <a href='f30119af104dc53daba7c01b08867e9b.html'><span class='node-icon _icon-UMLParameter'></span>genes</a>
+            
+            <span>, </span>
+            <a href='8550cce78b8986cb46f22e5b1c23aa32.html'><span class='node-icon _icon-UMLParameter'></span>originalBoard</a>
+            
+        </td>
+    </tr>
+    
+    
+    
+    
+    
+    <tr>
+        <td>raisedExceptions</td>
+        <td>
+            
+        </td>
+    </tr>
+    
+    
+    
+    
+    
+    <tr>
+        <td>concurrency</td>
+        <td>sequential</td>
+    </tr>
+    
+    
+    
+    
+    
+    <tr>
+        <td>isQuery</td>
         <td><span class='label label-info'>false</span></td>
     </tr>
+    
+    
+    
+    
+    
+    <tr>
+        <td>isAbstract</td>
+        <td><span class='label label-info'>false</span></td>
+    </tr>
+    
+    
+    
+    
+    
+    <tr>
+        <td>specification</td>
+        <td></td>
+    </tr>
+    
+    
+    
+    
+    
+    
     
     
     
@@ -405,17 +373,6 @@
 
             
             
-<section class="element-list">
-    <h3>Relationships</h3>
-    <ul class="nav nav-list">
-        
-        <li><a href='24f37d0274591f9bb75a542b0928b92e.html'><span class='node-icon _icon-UMLAssociation'></span>(Population—Chromosome)</a></li>
-        
-        <li><a href='f72cf35e26ed64d18fb039d00c7f9061.html'><span class='node-icon _icon-UMLAssociation'></span>(Algorithm—Chromosome)</a></li>
-        
-    </ul>
-</section>
-
 
 
             <!-- Owned Elements -->

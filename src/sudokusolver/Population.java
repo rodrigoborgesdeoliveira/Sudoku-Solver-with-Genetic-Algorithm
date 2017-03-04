@@ -76,8 +76,8 @@ public class Population {
             for (int i = 1; i < chromosomes.length; i++) {
                 if (chromosomes[i].getFitness() < chromosomes[i - 1].getFitness()) {
                     // The current chromosome is better than the previous one.
-                    Chromosome temp = new Chromosome(chromosomes[i]);
-                    chromosomes[i] = new Chromosome(chromosomes[i - 1]);
+                    Chromosome temp = chromosomes[i];
+                    chromosomes[i] = chromosomes[i - 1];
                     chromosomes[i - 1] = temp;
                     
                     changed = true;
